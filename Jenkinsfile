@@ -11,7 +11,7 @@ pipeline{
 
     stage('Test automatic trigger'){
       steps {
-        sh 'This is for the testing sake!'
+        sh "echo 'This is for the testing sake!'"
       }
     }
     
