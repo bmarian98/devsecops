@@ -14,6 +14,12 @@ pipeline{
         sh "echo 'This is for the testing sake!'"
       }
     }
+
+    stage ('Run Unit Testing'){
+      steps {
+        sh "mvn test"
+      }
+    }
     
-  }
-}
+  } // end of the stages section
+} // end of the pipeline section
