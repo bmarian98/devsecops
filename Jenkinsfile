@@ -19,6 +19,12 @@ pipeline{
       steps {
         sh "mvn test"
       }
+      post {
+        always {
+          junit 'target/surefire-reports/*.xml'
+          junit execPattern: 'target/jacoco.exec'
+        }
+      }
     }
     
   } // end of the stages section
