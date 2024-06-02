@@ -8,5 +8,12 @@ pipeline{
         archive 'target/*.jar'
       }
     }
+
+    stage('Test automatic trigger'){
+      steps {
+        sh 'This is for the testing sake!'
+      }
+    }
+    
   }
 }
