@@ -26,6 +26,16 @@ pipeline{
         }
       }
     }
+
+    stage ('Docker Build and Push'){
+      steps {
+        withDockerRegistry([credentialsId: "docker-hub", url: ""]){
+          sh 'printenv'
+          sh 'docker build -t marian1498/numeric-app:""$GIT_COMMIT"" .'
+          sh 'docker push marian1498/numeric-app:""$GIT_COMMIT""'
+        }
+      }
+    }
     
   } // end of the stages section
 } // end of the pipeline section
