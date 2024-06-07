@@ -27,7 +27,18 @@ pipeline{
       }
     }
 
-    stage ('Docker Build and Push'){
+    stage ('Mutation Test - PIT') {
+      steps {
+        sh 'mvn org.pitest:pitest-maven:mutationCoverage'
+      }
+      post {
+        always {
+          pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+        }
+      }
+    }
+
+    stage ('Docker Build and Push') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
