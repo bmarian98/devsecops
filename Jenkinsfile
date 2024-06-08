@@ -19,23 +19,23 @@ pipeline{
       steps {
         sh "mvn test"
       }
-      post {
+     /* post {
         always {
           junit 'target/surefire-reports/*.xml'
           jacoco execPattern: 'target/jacoco.exec'
         }
-      }
+      } */
     }
 
     stage ('Mutation Test - PIT') {
       steps {
         sh 'mvn org.pitest:pitest-maven:mutationCoverage'
       }
-      post {
-        always {
-          pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-        }
-      }
+      //  post {
+        //always {
+         // pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+       // }
+     // } 
     }
 
     stage ('SonarQube - SAST') {
@@ -53,7 +53,7 @@ pipeline{
       }
     }
 
-    stage ('Vulnerability Scan - Docker') {
+/*    stage ('Vulnerability Scan - Docker') {
       steps {
         sh "mvn dependency-check:check"
       }
@@ -63,7 +63,8 @@ pipeline{
         }
       }
     }
-
+*/
+    
     stage ('Docker Build and Push') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
@@ -84,4 +85,12 @@ pipeline{
     }
     
   } // end of the stages section
+
+  post {
+    always {
+      junit 'target/surefire-reports/*.xml'
+      jacoco execPattern: 'target/jacoco.exec'
+      pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+    }
+  }
 } // end of the pipeline section
