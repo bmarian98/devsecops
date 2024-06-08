@@ -69,7 +69,7 @@ pipeline{
       steps {
         withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-                    sh 'docker build -t marian1498/numeric-app:$GIT_COMMIT .'
+                    sh 'sudo docker build -t marian1498/numeric-app:$GIT_COMMIT .'
                     sh 'docker push marian1498/numeric-app:$GIT_COMMIT'
                 }
       }
