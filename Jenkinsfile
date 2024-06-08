@@ -55,11 +55,11 @@ pipeline{
 
     stage ('Vulnerability Scan - Docker') {
       steps {
-        sh "mvn dependecy-check:check"
+        sh "mvn dependency-check:check"
       }
       post {
         always {
-          dependecyCheckPublisher pattern: 'target/dependecy-check-report.xml'
+          dependecyCheckPublisher pattern: 'target/dependency-check-report.xml'
         }
       }
     }
