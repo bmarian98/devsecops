@@ -53,17 +53,17 @@ pipeline{
       }
     }
 
-/*    stage ('Vulnerability Scan - Docker') {
+    stage ('Vulnerability Scan - Docker') {
       steps {
-        sh "mvn dependency-check:check"
+        sh "bash trivi-docker-image-scan.sh"
       }
-      post {
+     /* post {
         always {
           dependecyCheckPublisher pattern: 'target/dependency-check-report.xml'
         }
-      }
+      }*/
     }
-*/
+
     
     stage ('Docker Build and Push') {
       steps {
