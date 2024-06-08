@@ -100,7 +100,7 @@ pipeline{
             sh "bash k8s-deployment.sh"
           }
         },
-          "Deployment" : {
+          "Rollback" : {
             withKubeConfig([credentialsId: 'kubeconfig']){
               sh "bash k8s-deployment-rollout-status.sh"
             }
